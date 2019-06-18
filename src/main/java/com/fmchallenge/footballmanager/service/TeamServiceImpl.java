@@ -5,6 +5,8 @@ import com.fmchallenge.footballmanager.repo.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -15,12 +17,23 @@ public class TeamServiceImpl implements TeamService {
     TeamRepository teamRepository;
 
     @Override
-    public Optional<Team> get(Long id) {
-        return teamRepository.findById(id);
+    public List<Team> getAll() {
+        Iterable<Team> teamsIterable = teamRepository.findAll();
+        List<Team> teamList = new ArrayList<>();
+        if (teamsIterable == null) {
+            return teamList;
+        }
+        teamsIterable.forEach(teamList::add);
+        return teamList;
     }
 
     @Override
-    public Optional<Team> upsert(Team team) {
+    public Optional<Team> get(String id) {
+        return teamRepository.findById(Long.valueOf(id));
+    }
+
+    @Override
+    public Optional<Team> update(Team team) {
         Optional<Team> existedTeam = teamRepository.findById(team.getId());
         if (!existedTeam.isPresent()) {
             return Optional.empty();
@@ -34,7 +47,16 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public void delete(Long id) {
-        teamRepository.deleteById(id);
+    public Optional<Team> insert(Team team) {
+        Team savedTeam = teamRepository.save(team);
+        if (savedTeam == null) {
+            return Optional.empty();
+        }
+        return Optional.of(savedTeam);
+    }
+
+    @Override
+    public void delete(String id) {
+        teamRepository.deleteById(Long.valueOf(id));
     }
 }

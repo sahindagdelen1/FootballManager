@@ -22,6 +22,16 @@ public class Player {
     @JoinColumn(name = "team_id")
     private Team team;
 
+    public Player() {
+    }
+
+    public Player(String name, String surname, LocalDate birthDate, LocalDate contractDate, Team team) {
+        this.name = name;
+        this.surname = surname;
+        this.birthDate = birthDate;
+        this.contractDate = contractDate;
+        this.team = team;
+    }
 
     public Long getId() {
         return id;

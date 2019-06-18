@@ -2,12 +2,17 @@ package com.fmchallenge.footballmanager.service;
 
 import com.fmchallenge.footballmanager.entity.Team;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface TeamService {
-    Optional<Team> get(Long id);
+    List<Team> getAll();
 
-    Optional<Team> upsert(Team team);
+    Optional<Team> get(String id);
 
-    void delete(Long id);
+    Optional<Team> insert(Team team);
+
+    Optional<Team> update(Team team);
+
+    void delete(String id);
 }
