@@ -74,7 +74,11 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public void delete(String id) {
-
         playerRepository.deleteById(Long.valueOf(id));
+    }
+
+    @Override
+    public List<Player> getPlayersValidContract(String teamId, String year) {
+        return playerRepository.findPlayersByContractDate_YearAndTeamId(Integer.valueOf(year), Long.valueOf(teamId));
     }
 }

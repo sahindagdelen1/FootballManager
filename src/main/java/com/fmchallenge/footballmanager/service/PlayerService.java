@@ -11,6 +11,8 @@ public interface PlayerService {
 
     List<Player> getPlayersByTeamId(String teamId);
 
+    List<Player> getPlayersValidContract(String teamId, String year);
+
     Optional<Player> get(String id);
 
     Optional<Player> insert(Player player);

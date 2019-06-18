@@ -18,6 +18,9 @@ public class Player {
     @Column
     private LocalDate contractDate;
 
+    @Column
+    private Double contractInterval;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "team_id")
     private Team team;
@@ -79,5 +82,13 @@ public class Player {
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    public Double getContractInterval() {
+        return contractInterval;
+    }
+
+    public void setContractInterval(Double contractInterval) {
+        this.contractInterval = contractInterval;
     }
 }

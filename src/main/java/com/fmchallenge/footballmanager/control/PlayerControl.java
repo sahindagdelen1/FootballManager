@@ -2,6 +2,8 @@ package com.fmchallenge.footballmanager.control;
 
 import com.fmchallenge.footballmanager.entity.Player;
 import com.fmchallenge.footballmanager.service.PlayerService;
+import com.fmchallenge.footballmanager.service.PlayerServiceImpl;
+import com.fmchallenge.footballmanager.service.TransferFeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,7 @@ public class PlayerControl {
     @Autowired
     PlayerService playerService;
 
+
     @GetMapping
     public ResponseEntity<List<Player>> getAll() {
         return ResponseEntity.ok(playerService.getAll());
@@ -27,9 +30,15 @@ public class PlayerControl {
     }
 
     @GetMapping
+    public ResponseEntity<List<Player>> getByContractYearAndTeam(@RequestParam String teamId, @RequestParam String year) {
+        return ResponseEntity.ok(playerService.getPlayersValidContract(teamId, year));
+    }
+
+    @GetMapping
     public ResponseEntity<Player> getByPlayerId(@RequestParam String playerId) {
         return ResponseEntity.ok(playerService.get(playerId).get());
     }
+
 
     @PostMapping(value = "/")
     public ResponseEntity<Player> insertTeam(@RequestBody Player playerParameter) {
