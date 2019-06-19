@@ -1,5 +1,7 @@
 package com.fmchallenge.footballmanager.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -8,11 +10,10 @@ public class Team {
     @Id
     @GeneratedValue
     private Long id;
-
-    @Column
     private String name;
 
     @OneToMany(mappedBy = "team")
+    @JsonIgnore
     private List<Player> players;
 
     public Long getId() {

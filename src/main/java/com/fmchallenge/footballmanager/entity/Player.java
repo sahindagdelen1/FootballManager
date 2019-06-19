@@ -1,5 +1,7 @@
 package com.fmchallenge.footballmanager.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -9,17 +11,12 @@ public class Player {
     @Id
     @GeneratedValue
     private Long id;
-    @Column
     private String name;
-    @Column
     private String surname;
-    @Column
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
-    @Column
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate contractDate;
-
-    @Column
-    private Double contractInterval;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "team_id")
@@ -82,13 +79,5 @@ public class Player {
 
     public void setTeam(Team team) {
         this.team = team;
-    }
-
-    public Double getContractInterval() {
-        return contractInterval;
-    }
-
-    public void setContractInterval(Double contractInterval) {
-        this.contractInterval = contractInterval;
     }
 }

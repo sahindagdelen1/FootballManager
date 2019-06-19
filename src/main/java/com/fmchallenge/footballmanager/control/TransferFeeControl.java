@@ -31,7 +31,7 @@ public class TransferFeeControl {
 
         Optional<Player> playerOpt = playerService.get(playerId);
         if (!playerOpt.isPresent()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
 
         PlayerTransferFee playerTransferFee = transferFeeService.calculateAllTransferFees(playerOpt.get(), currency);

@@ -21,7 +21,7 @@ public class TeamControl {
         return ResponseEntity.ok(teamService.getAll());
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/{idParam}")
     public ResponseEntity<Team> getTeamById(@PathVariable String idParam) {
         if (idParam == null || idParam.equals("")) {
             return ResponseEntity.badRequest().build();

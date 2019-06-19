@@ -3,6 +3,7 @@ package com.fmchallenge.footballmanager.service;
 import com.fmchallenge.footballmanager.entity.Player;
 import com.fmchallenge.footballmanager.entity.Team;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,7 +12,7 @@ public interface PlayerService {
 
     List<Player> getPlayersByTeamId(String teamId);
 
-    List<Player> getPlayersValidContract(String teamId, String year);
+    List<Player> getPlayersByContractDateBetweenAndTeamId(String year, String teamId);
 
     Optional<Player> get(String id);
 

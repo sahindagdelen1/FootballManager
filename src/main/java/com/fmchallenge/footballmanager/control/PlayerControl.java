@@ -2,8 +2,6 @@ package com.fmchallenge.footballmanager.control;
 
 import com.fmchallenge.footballmanager.entity.Player;
 import com.fmchallenge.footballmanager.service.PlayerService;
-import com.fmchallenge.footballmanager.service.PlayerServiceImpl;
-import com.fmchallenge.footballmanager.service.TransferFeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,30 +16,28 @@ public class PlayerControl {
     @Autowired
     PlayerService playerService;
 
-
     @GetMapping
     public ResponseEntity<List<Player>> getAll() {
         return ResponseEntity.ok(playerService.getAll());
     }
 
-    @GetMapping
+    @GetMapping(value = "/getTeamById")
     public ResponseEntity<List<Player>> getByTeamId(@RequestParam String teamId) {
         return ResponseEntity.ok(playerService.getPlayersByTeamId(teamId));
     }
 
-    @GetMapping
-    public ResponseEntity<List<Player>> getByContractYearAndTeam(@RequestParam String teamId, @RequestParam String year) {
-        return ResponseEntity.ok(playerService.getPlayersValidContract(teamId, year));
-    }
-
-    @GetMapping
+    @GetMapping(value = "/getByPlayerId")
     public ResponseEntity<Player> getByPlayerId(@RequestParam String playerId) {
         return ResponseEntity.ok(playerService.get(playerId).get());
     }
 
+    @GetMapping(value = "/getPlayersByContractYearAndTeam")
+    public ResponseEntity<List<Player>> getPlayersByContractYearAndTeam(@RequestParam String year, @RequestParam String teamId) {
+        return ResponseEntity.ok(playerService.getPlayersByContractDateBetweenAndTeamId(year, teamId));
+    }
 
     @PostMapping(value = "/")
-    public ResponseEntity<Player> insertTeam(@RequestBody Player playerParameter) {
+    public ResponseEntity<Player> insertPlayer(@RequestBody Player playerParameter) {
         Optional<Player> player = playerService.insert(playerParameter);
         if (!player.isPresent()) {
             return ResponseEntity.noContent().build();

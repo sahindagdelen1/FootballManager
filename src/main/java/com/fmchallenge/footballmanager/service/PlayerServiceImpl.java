@@ -7,6 +7,8 @@ import com.fmchallenge.footballmanager.repo.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -38,6 +40,13 @@ public class PlayerServiceImpl implements PlayerService {
         }
         playersIterable.forEach(playerList::add);
         return playerList;
+    }
+
+    @Override
+    public List<Player> getPlayersByContractDateBetweenAndTeamId(String year, String teamId) {
+        LocalDate startDate = LocalDate.of(Integer.valueOf(year), Month.JANUARY, 1);
+        LocalDate endDate = LocalDate.of((Integer.valueOf(year) + 1), Month.JANUARY, 1);
+        return playerRepository.findPlayersByContractDateBetweenAndTeam_Id(startDate, endDate, Long.valueOf(teamId));
     }
 
     @Override
@@ -75,10 +84,5 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public void delete(String id) {
         playerRepository.deleteById(Long.valueOf(id));
-    }
-
-    @Override
-    public List<Player> getPlayersValidContract(String teamId, String year) {
-        return playerRepository.findPlayersByContractDate_YearAndTeamId(Integer.valueOf(year), Long.valueOf(teamId));
     }
 }
